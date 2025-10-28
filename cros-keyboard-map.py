@@ -157,6 +157,24 @@ down = pagedown
 
 [control+alt]
 backspace = C-A-delete
+# TTY switching for inverted mode (F-keys by default)
+f1 = C-A-f1
+f2 = C-A-f2
+f3 = C-A-f3
+f4 = C-A-f4
+f5 = C-A-f5
+f6 = C-A-f6
+f7 = C-A-f7
+f8 = C-A-f8
+# TTY switching for non-inverted mode (Chrome keys by default)
+back = C-A-f1
+forward = C-A-f2
+refresh = C-A-f3
+zoom = C-A-f4
+scale = C-A-f5
+brightnessdown = C-A-f6
+brightnessup = C-A-f7
+mute = C-A-f8
 """
     return config
 
