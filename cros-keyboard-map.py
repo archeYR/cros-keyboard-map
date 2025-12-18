@@ -122,6 +122,33 @@ def get_functional_row(physmap, use_vivaldi, super_is_held, super_inverted):
 
     return result
 
+def get_tty_switching(physmap):
+    """Generate TTY switching mappings for all top row keys.
+
+    Dynamically generates Ctrl+Alt+F{n} mappings based on the actual physmap,
+    ensuring compatibility with all Chromebook keyboard layouts.
+    """
+    arch = get_arch()
+    if arch != "x86_64":
+        arch = "arm"
+
+    i = 0
+    result = ""
+
+    # Generate F-key mappings for inverted mode (F-keys by default)
+    for code in physmap:
+        i += 1
+        result += f"f{i} = C-A-f{i}\n"
+
+    # Generate Chrome key mappings for non-inverted mode (Chrome keys by default)
+    i = 0
+    for code in physmap:
+        i += 1
+        chrome_key = vivaldi_keys[arch][code]
+        result += f"{chrome_key} = C-A-f{i}\n"
+
+    return result
+
 def get_keyd_config(physmap, inverted):
     config = f"""\
 [ids]
@@ -157,6 +184,7 @@ down = pagedown
 
 [control+alt]
 backspace = C-A-delete
+{get_tty_switching(physmap)}
 """
     return config
 
